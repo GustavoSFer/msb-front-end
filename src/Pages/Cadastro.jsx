@@ -9,24 +9,30 @@ function Cadastro() {
   const [celular, setCelular] = useState('');
   const [mensagem, setMensagem] = useState('');
   const [file, setFile] = useState('');
+  const [mensagemErro, setMensagemErro] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!name || !email || !file || !celular) {
+      setMensagemErro('Por favor preencher todos os campos');
+      console.log('entrou aqui----------------');
+      return false;
+    }
+
     const typeFile = ['pdf', 'doc', 'docx', 'odt', 'txt'];
     const extensao = file.name.split('.');
     if (typeFile.includes(extensao[1])) {
       console.log('correto');
+      setMensagemErro('');
     } else {
       console.log('incorreto');
+      setMensagemErro('Formato do arquivo invalido!');
     }
+    return true;
+
     // const formData = new FormData();
     // formData.append('file', file);
     // console.log(file);
-  };
-
-  const isValid = (emailToTest) => {
-    const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    return regexEmail.test(emailToTest);
   };
 
   return (
@@ -93,10 +99,11 @@ function Cadastro() {
               </div>
               <Button
                 onClick={handleSubmit}
-                disable={!(isValid(email))}
+                // disable={!(isValid)}
               >
                 Enviar
               </Button>
+              {mensagemErro && <p>{mensagemErro}</p>}
             </div>
           </form>
         </div>
