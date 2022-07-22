@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../Components/Button';
 import Input from '../Components/Input';
+import logo from '../images/msb.png';
 import '../Style/Input.css';
 
 function Cadastro() {
@@ -11,24 +12,35 @@ function Cadastro() {
   const [file, setFile] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const validCampos = () => {
     if (!name || !email || !file || !celular) {
       setMensagemErro('Por favor preencher todos os campos');
-      console.log('entrou aqui----------------');
       return false;
     }
+    return true;
+  };
 
+  const validFile = () => {
     const typeFile = ['pdf', 'doc', 'docx', 'odt', 'txt'];
+    if (!file) return false;
     const extensao = file.name.split('.');
     if (typeFile.includes(extensao[1])) {
-      console.log('correto');
       setMensagemErro('');
     } else {
-      console.log('incorreto');
       setMensagemErro('Formato do arquivo invalido!');
     }
     return true;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const campos = validCampos();
+    const fileToVelid = validFile();
+
+    if (campos && fileToVelid) {
+      console.log('Tudo ok');
+    }
+    return false;
 
     // const formData = new FormData();
     // formData.append('file', file);
@@ -39,9 +51,12 @@ function Cadastro() {
     <div className="row image-fundo align-items-center p-4">
       <div className="col-sm-5 text-center">
         Bem vindo!
+        <div className="row text-center">
+          <img src={logo} alt="Imagem logo empresa" className="col-md-9 logo" />
+        </div>
       </div>
 
-      <div className="col-sm-6 shadow p-5 rounded m-2">
+      <div className="col-sm-6 shadow p-5 rounded m-2 width-form">
         <div className="row mb-4">
           <h1 className="text-muted text-center">Enviar dados</h1>
           <form onSubmit={handleSubmit}>
@@ -99,7 +114,6 @@ function Cadastro() {
               </div>
               <Button
                 onClick={handleSubmit}
-                // disable={!(isValid)}
               >
                 Enviar
               </Button>
