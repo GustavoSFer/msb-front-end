@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Button from '../Components/Button';
 import Input from '../Components/Input';
 import '../Style/Input.css';
 
@@ -11,10 +12,21 @@ function Cadastro() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(name);
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append('file', file);
+    const typeFile = ['pdf', 'doc', 'docx', 'odt', 'txt'];
+    const extensao = file.name.split('.');
+    if (typeFile.includes(extensao[1])) {
+      console.log('correto');
+    } else {
+      console.log('incorreto');
+    }
+    // const formData = new FormData();
+    // formData.append('file', file);
+    // console.log(file);
+  };
+
+  const isValid = (emailToTest) => {
+    const regexEmail = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    return regexEmail.test(emailToTest);
   };
 
   return (
@@ -70,12 +82,21 @@ function Cadastro() {
                 </label>
               </div>
               <div>
-                <input
-                  type="file"
-                  className="form-control form-control-sm mt-3"
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
+                <label htmlFor="file">
+                  <input
+                    type="file"
+                    id="file"
+                    className="form-control form-control-sm mt-3"
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </label>
               </div>
+              <Button
+                onClick={handleSubmit}
+                disable={!(isValid(email))}
+              >
+                Enviar
+              </Button>
             </div>
           </form>
         </div>
