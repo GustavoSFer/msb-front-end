@@ -1,0 +1,11 @@
+.width-max {
+  max-width: 310px;
+  margin: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .width-max  {
+    width: 60%;
+    margin: auto;
+  }
+}
