@@ -10,14 +10,14 @@ function Input({
   value,
 }) {
   return (
-    <label htmlFor={name}>
+    <label htmlFor={name} className="text-start">
       {placeholder}
       <input
         type={type}
         value={value}
         name={name}
         id={name}
-        className={`form-control max-input ${className}`}
+        className={`form-control text-start ${className}`}
         placeholder={placeholder}
         onChange={onChange}
       />
