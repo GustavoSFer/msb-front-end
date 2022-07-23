@@ -4,6 +4,7 @@ import { createData, ipClient } from '../Services';
 import Input from '../Components/Input';
 import logo from '../images/msb.png';
 import '../Style/Input.css';
+import { validCampos, validPhone, isValidEmail } from '../Validations';
 
 function Cadastro() {
   const [name, setName] = useState('');
@@ -12,25 +13,6 @@ function Cadastro() {
   const [mensagem, setMensagem] = useState('');
   const [file, setFile] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
-
-  const validCampos = () => {
-    if (!name || !email || !file || !phone) {
-      return false;
-    }
-    return true;
-  };
-
-  const validPhone = () => {
-    if (phone.length > 9 && phone.length < 12) {
-      return true;
-    }
-    return false;
-  };
-
-  const isValidEmail = () => {
-    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
-    return regex.test(email);
-  };
 
   const validFile = () => {
     const typeFile = ['pdf', 'doc', 'docx', 'odt', 'txt'];
@@ -47,10 +29,10 @@ function Cadastro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const myip = await ipClient();
-    const campos = validCampos();
+    const campos = validCampos(name, email, file, phone);
     const fileToVelid = validFile();
-    const isValidPhone = validPhone();
-    const isvalidEmail = isValidEmail();
+    const isValidPhone = validPhone(phone);
+    const isvalidEmail = isValidEmail(email);
     if (!campos) {
       return setMensagemErro('Por favor preencher todos os campos');
     }
