@@ -11,7 +11,7 @@ function Input({
 }) {
   return (
     <label htmlFor={name} className="text-start">
-      {placeholder}
+      {name}
       <input
         type={type}
         value={value}

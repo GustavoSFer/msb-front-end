@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../Components/Button';
+import createData from '../Services';
 import Input from '../Components/Input';
 import logo from '../images/msb.png';
 import '../Style/Input.css';
@@ -7,17 +8,28 @@ import '../Style/Input.css';
 function Cadastro() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [celular, setCelular] = useState('');
+  const [phone, setPhone] = useState('');
   const [mensagem, setMensagem] = useState('');
   const [file, setFile] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
 
   const validCampos = () => {
-    if (!name || !email || !file || !celular) {
-      setMensagemErro('Por favor preencher todos os campos');
+    if (!name || !email || !file || !phone) {
       return false;
     }
     return true;
+  };
+
+  const validPhone = () => {
+    if (phone.length > 9 && phone.length < 12) {
+      return true;
+    }
+    return false;
+  };
+
+  const isValidEmail = () => {
+    const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+    return regex.test(email);
   };
 
   const validFile = () => {
@@ -27,7 +39,7 @@ function Cadastro() {
     if (typeFile.includes(extensao[1])) {
       setMensagemErro('');
     } else {
-      setMensagemErro('Formato do arquivo invalido!');
+      return setMensagemErro('Formato do arquivo invalido!');
     }
     return true;
   };
@@ -36,15 +48,23 @@ function Cadastro() {
     e.preventDefault();
     const campos = validCampos();
     const fileToVelid = validFile();
+    const isValidPhone = validPhone();
+    const isvalidEmail = isValidEmail();
+    if (!campos) {
+      return setMensagemErro('Por favor preencher todos os campos');
+    }
+
+    if (!isValidPhone || !isvalidEmail) {
+      return setMensagemErro('E-mail ou senha incorreto!');
+    }
 
     if (campos && fileToVelid) {
-      console.log('Tudo ok');
+      const nomeFile = file.name;
+      createData('/', {
+        name, email, phone, mensagem, nomeFile,
+      });
     }
     return false;
-
-    // const formData = new FormData();
-    // formData.append('file', file);
-    // console.log(file);
   };
 
   return (
@@ -59,12 +79,12 @@ function Cadastro() {
       <div className="col-sm-6 shadow p-5 rounded m-2 width-form">
         <div className="row mb-4">
           <h1 className="text-muted text-center">Enviar dados</h1>
-          <form onSubmit={handleSubmit}>
+          <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
             <div className="mb-3 row">
               <div className="col-ms-12 mb-3">
                 <Input
                   type="text"
-                  name="nome"
+                  name="Nome"
                   id="nome"
                   value={name}
                   placeholder="Nome"
@@ -74,7 +94,7 @@ function Cadastro() {
               <div className="col-ms-12 mb-3">
                 <Input
                   type="email"
-                  name="email"
+                  name="E-mail"
                   value={email}
                   placeholder="E-mail"
                   onChange={(e) => setEmail(e.target.value)}
@@ -83,10 +103,10 @@ function Cadastro() {
               <div className="col-ms-12 mb-3">
                 <Input
                   type="text"
-                  name="telefone"
-                  value={celular}
-                  placeholder="Celular"
-                  onChange={(e) => setCelular(e.target.value)}
+                  name="Telefone"
+                  value={phone}
+                  placeholder="DDD + Celular / Telefone"
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
               <div className="text-start">
@@ -96,7 +116,7 @@ function Cadastro() {
                     type="area"
                     name="mensagem"
                     value={mensagem}
-                    placeholder="Mensagem"
+                    placeholder="Mensagem (Opcional)"
                     className="max-input form-control"
                     onChange={(e) => setMensagem(e.target.value)}
                   />

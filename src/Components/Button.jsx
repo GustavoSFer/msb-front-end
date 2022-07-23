@@ -5,7 +5,7 @@ import '../Style/Button.css';
 function Button({ children, disable, onClick }) {
   return (
     <button
-      type="button"
+      type="submit"
       className="btn btn-primary mt-3 width-max"
       disabled={disable}
       onClick={onClick}
