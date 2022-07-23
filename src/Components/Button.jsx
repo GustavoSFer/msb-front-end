@@ -6,7 +6,7 @@ function Button({ children, disable, onClick }) {
   return (
     <button
       type="submit"
-      className="btn btn-primary mt-3 width-max"
+      className="btn btn-color mt-3 width-max"
       disabled={disable}
       onClick={onClick}
     >

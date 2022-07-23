@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '../Components/Button';
-import createData from '../Services';
+import { createData, ipClient } from '../Services';
 import Input from '../Components/Input';
 import logo from '../images/msb.png';
 import '../Style/Input.css';
@@ -44,8 +44,9 @@ function Cadastro() {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const myip = await ipClient();
     const campos = validCampos();
     const fileToVelid = validFile();
     const isValidPhone = validPhone();
@@ -61,84 +62,89 @@ function Cadastro() {
     if (campos && fileToVelid) {
       const nomeFile = file.name;
       createData('/', {
-        name, email, phone, mensagem, nomeFile,
+        name, email, phone, mensagem, nomeFile, myip,
       });
     }
     return false;
   };
 
   return (
-    <div className="row image-fundo align-items-center p-4">
+    <div className="row align-items-center p-4">
       <div className="col-sm-5 text-center">
         Bem vindo!
-        <div className="row text-center">
-          <img src={logo} alt="Imagem logo empresa" className="col-md-9 logo" />
+        <div className="text-center">
+          <img src={logo} alt="Imagem logo empresa" className="logo" />
         </div>
       </div>
 
-      <div className="col-sm-6 shadow p-5 rounded m-2 width-form">
-        <div className="row mb-4">
+      <div className="col-sm-6 shadow p-5 rounded m-2">
+        <div className="mb-4">
           <h1 className="text-muted text-center">Enviar dados</h1>
-          <form method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
-            <div className="mb-3 row">
-              <div className="col-ms-12 mb-3">
-                <Input
-                  type="text"
-                  name="Nome"
-                  id="nome"
-                  value={name}
-                  placeholder="Nome"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div className="col-ms-12 mb-3">
-                <Input
-                  type="email"
-                  name="E-mail"
-                  value={email}
-                  placeholder="E-mail"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="col-ms-12 mb-3">
-                <Input
-                  type="text"
-                  name="Telefone"
-                  value={phone}
-                  placeholder="DDD + Celular / Telefone"
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-              <div className="text-start">
-                <label htmlFor="mensagem">
-                  Mensagem
-                  <textarea
-                    type="area"
-                    name="mensagem"
-                    value={mensagem}
-                    placeholder="Mensagem (Opcional)"
-                    className="max-input form-control"
-                    onChange={(e) => setMensagem(e.target.value)}
-                  />
-                </label>
-              </div>
-              <div>
-                <label htmlFor="file">
-                  <input
-                    type="file"
-                    id="file"
-                    className="form-control form-control-sm mt-3"
-                    onChange={(e) => setFile(e.target.files[0])}
-                  />
-                </label>
-              </div>
-              <Button
-                onClick={handleSubmit}
-              >
-                Enviar
-              </Button>
-              {mensagemErro && <p>{mensagemErro}</p>}
+          <form
+            method="post"
+            encType="multipart/form-data"
+            onSubmit={handleSubmit}
+          >
+
+            <div className="mb-3 ">
+              <Input
+                type="text"
+                name="Nome"
+                id="nome"
+                value={name}
+                placeholder="Nome"
+                onChange={(e) => setName(e.target.value)}
+              />
+              <div className="form-text m-0">hfudsufsd</div>
             </div>
+            <div className="mb-3">
+              <Input
+                type="email"
+                name="E-mail"
+                value={email}
+                placeholder="E-mail"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <Input
+                type="text"
+                name="Telefone"
+                value={phone}
+                placeholder="DDD + Celular / Telefone"
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="text-start">
+              <label htmlFor="mensagem">
+                Mensagem
+                <textarea
+                  type="area"
+                  name="mensagem"
+                  value={mensagem}
+                  placeholder="Mensagem (Opcional)"
+                  className="max-input form-control"
+                  onChange={(e) => setMensagem(e.target.value)}
+                />
+              </label>
+            </div>
+            <div>
+              <label htmlFor="file">
+                <input
+                  type="file"
+                  id="file"
+                  className="form-control form-control-sm mt-3"
+                  onChange={(e) => setFile(e.target.files[0])}
+                />
+              </label>
+            </div>
+            <Button
+              onClick={handleSubmit}
+            >
+              Enviar
+            </Button>
+            {mensagemErro && <p>{mensagemErro}</p>}
+
           </form>
         </div>
       </div>

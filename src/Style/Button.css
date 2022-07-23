@@ -1,8 +1,19 @@
 .width-max {
-  max-width: 310px;
+  width: 150px;
   margin: auto;
 }
 
+.btn-color {
+  background-color: #00afef;
+  color: white;
+  font-weight: 600;
+}
+
+.btn-color:hover {
+  background-color: #0298cf;
+  color: rgb(230, 227, 227);
+  font-weight: 600;
+}
 @media only screen and (max-width: 600px) {
   .width-max  {
     width: 60%;

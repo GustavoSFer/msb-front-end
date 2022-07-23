@@ -6,18 +6,17 @@ function Input({
   name,
   onChange,
   placeholder,
-  className,
   value,
 }) {
   return (
-    <label htmlFor={name} className="text-start">
+    <label htmlFor={name} className="form-label">
       {name}
       <input
         type={type}
         value={value}
         name={name}
         id={name}
-        className={`form-control text-start ${className}`}
+        className="form-control"
         placeholder={placeholder}
         onChange={onChange}
       />
@@ -25,13 +24,12 @@ function Input({
   );
 }
 
-Input.defaultProps = { onChange: () => {}, className: '' };
+Input.defaultProps = { onChange: () => {} };
 Input.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
-  className: PropTypes.string,
   value: PropTypes.string.isRequired,
 };
 
