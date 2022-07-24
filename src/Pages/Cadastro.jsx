@@ -75,6 +75,7 @@ function Cadastro() {
                 id="nome"
                 value={name}
                 placeholder="Nome"
+                datatestid="nome"
                 onChange={(e) => setName(e.target.value)}
               />
               <div className="form-text m-0">hfudsufsd</div>
@@ -85,6 +86,7 @@ function Cadastro() {
                 name="E-mail"
                 value={email}
                 placeholder="E-mail"
+                datatestid="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
@@ -93,6 +95,7 @@ function Cadastro() {
                 type="text"
                 name="Telefone"
                 value={phone}
+                datatestid="phone"
                 placeholder="DDD + Celular / Telefone"
                 onChange={(e) => setPhone(e.target.value)}
               />
@@ -104,6 +107,7 @@ function Cadastro() {
                   type="area"
                   name="mensagem"
                   value={mensagem}
+                  datatestid="mensagem"
                   placeholder="Mensagem (Opcional)"
                   className="max-input form-control"
                   onChange={(e) => setMensagem(e.target.value)}
@@ -115,6 +119,7 @@ function Cadastro() {
                 <input
                   type="file"
                   id="file"
+                  data-testid="file"
                   className="form-control form-control-sm mt-3"
                   onChange={(e) => setFile(e.target.files[0])}
                 />

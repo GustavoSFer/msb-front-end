@@ -7,6 +7,7 @@ function Input({
   onChange,
   placeholder,
   value,
+  datatestid,
 }) {
   return (
     <label htmlFor={name} className="form-label">
@@ -17,6 +18,7 @@ function Input({
         name={name}
         id={name}
         className="form-control"
+        data-testid={datatestid}
         placeholder={placeholder}
         onChange={onChange}
       />
@@ -31,6 +33,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
+  datatestid: PropTypes.string,
 };
 
 export default Input;
