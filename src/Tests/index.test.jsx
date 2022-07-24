@@ -36,3 +36,10 @@ test('Verifica se existe o input do File', () => {
 
   expect(inputName).toBeInTheDocument();
 });
+
+test('Verifica se existe o input do Button', () => {
+  render(<Cadastro />);
+  const inputName = screen.getByTestId("button");
+
+  expect(inputName).toBeInTheDocument();
+});
