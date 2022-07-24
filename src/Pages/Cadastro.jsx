@@ -107,7 +107,7 @@ function Cadastro() {
                   type="area"
                   name="mensagem"
                   value={mensagem}
-                  datatestid="mensagem"
+                  data-testid="mensagem"
                   placeholder="Mensagem (Opcional)"
                   className="max-input form-control"
                   onChange={(e) => setMensagem(e.target.value)}

@@ -33,7 +33,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  datatestid: PropTypes.string,
+  datatestid: PropTypes.string.isRequired,
 };
 
 export default Input;

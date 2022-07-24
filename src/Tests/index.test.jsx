@@ -22,3 +22,17 @@ test('Verifica se existe o input do Phone', () => {
 
   expect(inputName).toBeInTheDocument();
 });
+
+test('Verifica se existe o input do Mensagem', () => {
+  render(<Cadastro />);
+  const inputName = screen.getByTestId("mensagem");
+
+  expect(inputName).toBeInTheDocument();
+});
+
+test('Verifica se existe o input do File', () => {
+  render(<Cadastro />);
+  const inputName = screen.getByTestId("file");
+
+  expect(inputName).toBeInTheDocument();
+});
