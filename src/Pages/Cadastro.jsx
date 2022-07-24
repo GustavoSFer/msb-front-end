@@ -13,6 +13,7 @@ function Cadastro() {
   const [mensagem, setMensagem] = useState('');
   const [file, setFile] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
+  const [mensagemSucesso, setMensagemSucesso] = useState('');
 
   const validFile = () => {
     const typeFile = ['pdf', 'doc', 'docx', 'odt', 'txt'];
@@ -24,6 +25,14 @@ function Cadastro() {
       return setMensagemErro('Formato do arquivo invalido!');
     }
     return true;
+  };
+
+  const limparInputs = () => {
+    setName('');
+    setEmail('');
+    setPhone('');
+    setMensagem('');
+    setFile('');
   };
 
   const handleSubmit = async (e) => {
@@ -46,6 +55,8 @@ function Cadastro() {
       createData('/', {
         name, email, phone, mensagem, nomeFile, myip,
       });
+      limparInputs();
+      setMensagemSucesso('Dados enviados com sucesso!');
     }
     return false;
   };
@@ -131,6 +142,7 @@ function Cadastro() {
               Enviar
             </Button>
             {mensagemErro && <p>{mensagemErro}</p>}
+            {mensagemSucesso && <p>{mensagemSucesso}</p>}
 
           </form>
         </div>
