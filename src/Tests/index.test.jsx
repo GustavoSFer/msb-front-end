@@ -8,3 +8,17 @@ test('Verifica se existe o input do Nome', () => {
 
   expect(inputName).toBeInTheDocument();
 });
+
+test('Verifica se existe o input do Email', () => {
+  render(<Cadastro />);
+  const inputName = screen.getByTestId("email");
+
+  expect(inputName).toBeInTheDocument();
+});
+
+test('Verifica se existe o input do Phone', () => {
+  render(<Cadastro />);
+  const inputName = screen.getByTestId("phone");
+
+  expect(inputName).toBeInTheDocument();
+});
