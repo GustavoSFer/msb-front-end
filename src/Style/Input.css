@@ -1,0 +1,16 @@
+body {
+  background-color: #f4f4f4;
+}
+
+.logo {
+  width: 300px;
+  opacity: 40%;
+}
+
+@media only screen and (max-width: 420px) {
+  .logo {
+    width: 30%;
+    margin: auto;
+    opacity: 60%;
+  }
+}
